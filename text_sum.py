@@ -1,0 +1,72 @@
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import sent_tokenize,word_tokenize
+import heapq  
+
+def text_sumarize(row_text):
+    
+    stopWords=set(stopwords.words("english"))
+    word_fequence={}
+
+    for word in nltk.word_tokenize(row_text):
+        if word  not in stopWords:
+            if word not in word_fequence.keys():
+                word_fequence[word]=1
+            else:
+                word_fequence[word] +=1
+    maximum_freq=max(word_fequence.values())     
+    
+    for word in word_fequence.keys():
+        word_fequence[word]=(word_fequence[word]/maximum_freq)
+        
+    sentence_list=nltk.sent_tokenize(row_text)
+    
+    sentence={}
+    for i in sentence_list:
+        for word in nltk.word_tokenize(i.lower()):
+            if word in word_fequence.keys():
+                if len(i.split(" "))<30:
+                    if i not in sentence.keys():
+                        sentence[word]=word_fequence[word]
+                        
+                    else:
+                        sentence[word]+=word_fequence[word]
+                        
+    summary_test=heapq.nlargest(7,sentence,key=sentence.get)    
+    summary=" ".join(summary_test)
+    
+    return summary
+
+
+# def nltk_summarizer(raw_text):
+# 	stopWords = set(stopwords.words("english"))
+# 	word_frequencies = {}  
+# 	for word in nltk.word_tokenize(raw_text):  
+# 	    if word not in stopWords:
+# 	        if word not in word_frequencies.keys():
+# 	            word_frequencies[word] = 1
+# 	        else:
+# 	            word_frequencies[word] += 1
+
+# 	maximum_frequncy = max(word_frequencies.values())
+
+# 	for word in word_frequencies.keys():  
+# 	    word_frequencies[word] = (word_frequencies[word]/maximum_frequncy)
+
+# 	sentence_list = nltk.sent_tokenize(raw_text)
+# 	sentence_scores = {}  
+# 	for sent in sentence_list:  
+# 	    for word in nltk.word_tokenize(sent.lower()):
+# 	        if word in word_frequencies.keys():
+# 	            if len(sent.split(' ')) < 30:
+# 	                if sent not in sentence_scores.keys():
+# 	                    sentence_scores[sent] = word_frequencies[word]
+# 	                else:
+# 	                    sentence_scores[sent] += word_frequencies[word]
+
+
+
+# 	summary_sentences = heapq.nlargest(7, sentence_scores, key=sentence_scores.get)
+
+# 	summary = ' '.join(summary_sentences)  
+# 	return summary

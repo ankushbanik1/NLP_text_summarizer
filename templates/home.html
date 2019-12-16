@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<!-- <link rel="stylesheet" type="text/css" href="../static/css/styles.css"> -->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+
+</head>
+<body>
+
+	<header>
+		<div class="container">
+		<div id="brandname">
+			<br><br><br><br>
+			<h1 class="text-center" style="color:rgb(223, 0, 0);font-size:20;text-align: center;"> A NLP Web-app </h1>
+		</div>
+		
+		<hr>
+		<h3 class="text-center" style="color:rgb(71, 223, 0)">Text Summarizer</h3>
+		
+	
+	</header>
+
+	<div class="container">
+
+		<form action="{{ url_for('predict')}}" method="POST">
+			<div class="form-group shadow-textarea">
+				<label for="exampleFormControlTextarea6" style="color:rgb(15, 0, 223)"><h4>Enter You text</h4></label>
+				<textarea name="message" class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3" placeholder="Summarize your article....."></textarea>
+			      </div>	<br/>
+
+		<input  type="submit" class=" btn btn-success" value="predict">
+		
+	</form>
+		</div>
+	</div>
+
+	
+</div>	
+
+</body>
+</html>
